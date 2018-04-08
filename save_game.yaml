@@ -1,0 +1,29 @@
+---
+:hangman: !ruby/object:Hangman
+  keyword:
+  - G
+  - u
+  - a
+  - d
+  - a
+  - l
+  - a
+  - j
+  - a
+  - r
+  - a
+  incomplete_word:
+  - _
+  - _
+  - _
+  - d
+  - _
+  - _
+  - _
+  - _
+  - _
+  - _
+  - _
+:player: !ruby/object:Player
+  name: Binh
+  lives: 7

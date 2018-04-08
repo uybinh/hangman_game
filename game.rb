@@ -12,18 +12,6 @@ def update_player_state(hangman, player, guess)
   player.lives -= 1 if !hangman.guess_right?(guess)
 end
 
-def ask_player_for_input(player)
-  guess = ''
-  loop do
-    print "Enter a charactor: "
-    guess = gets.chomp
-    exit if guess == "exit"
-    break if player.valid_guess?(guess)
-    puts "Please enter only one charactor at a time!"
-  end
-  guess
-end
-
 def create_yaml(hangman, player)
   yaml = YAML.dump({
     hangman: hangman,
@@ -39,7 +27,7 @@ end
 
 def save_game(hangman, player)
   yaml = create_yaml(hangman, player)
-  creat_saved_file("save_game.yaml", yaml)
+  create_saved_file("save_game.yaml", yaml)
 end
 
 def load_game
@@ -65,8 +53,30 @@ while true
   system("clear")
 
   while true
-    hangman.show_incomplete_word
-    guess = ask_player_for_input(player)
+    guess = ''
+    loop do
+      hangman.show_incomplete_word
+      puts "1. End game"
+      puts "2. Save game"
+      puts "3. Load game"
+      puts ". or any other charators to guess"
+      print "Please enter an option: "
+      guess = gets.chomp
+      case guess
+      when '1'
+        exit
+      when '2'
+        save_game(hangman, player)
+        puts "Game saved!!"
+      when '3'
+        game_object = load_game
+        hangman = game_object[:hangman]
+        player = game_object[:player]
+        puts "Game loaded!!"
+      when /^[a-zA-Z]$/
+        break
+      end
+    end
     update_game_state(hangman, player, guess)
     print "Lives remain: "
     puts player.lives
