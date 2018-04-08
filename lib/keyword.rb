@@ -16,7 +16,7 @@ class Keyword
       file = File.open("keywords.txt", 'r').readlines
       keyword = ''
       loop do
-        keyword = file[rand(0...(file.size))].strip.downcase
+        keyword = file[rand(0...(file.size))].strip
         break if keyword.length.between?(5,12)
       end
       keyword
